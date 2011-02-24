@@ -25,6 +25,9 @@ GEM
       arel (~> 2.0.2)
       tzinfo (~> 0.3.23)
     activerecord-jdbc-adapter (1.1.1)
+    activerecord-jdbcsqlite3-adapter (1.1.1)
+      activerecord-jdbc-adapter (= 1.1.1)
+      jdbc-sqlite3 (~> 3.6.0)
     activeresource (3.0.4)
       activemodel (= 3.0.4)
       activesupport (= 3.0.4)
@@ -79,7 +82,7 @@ PLATFORMS
 
 DEPENDENCIES
   activerecord-jdbc-adapter (= 1.1.1)
-  jdbc-sqlite3
+  activerecord-jdbcsqlite3-adapter (= 1.1.1)
   jruby-openssl
   org.torquebox.messaging-client
   org.torquebox.rake-support

@@ -29,7 +29,8 @@ gem 'rails', '3.0.4'
 # group :development, :test do
 #   gem 'webrat'
 # end
-gem "activerecord-jdbc-adapter", "0.9.7", :require => "jdbc_adapter"
+gem "transitions", :require => ["transitions", "active_record/transitions"]
+gem "activerecord-jdbc-adapter", "1.1.1", :require => "jdbc_adapter"
 gem "jdbc-sqlite3"
 gem "jruby-openssl"
 gem "org.torquebox.rake-support"

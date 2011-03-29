@@ -1,0 +1,26 @@
+<h3>Images</h3>
+
+<% unless @images.empty? %>
+    <table cellspacing="1" cellpadding="5">
+      <tr class="header">
+        <th>ID</th>
+        <th>Image state</th>
+        <th>Appliance</th>
+        <th>Node</th>
+      </tr>
+      <% @images.each do |image| %>
+          <tr class="row">
+            <td><%= link_to "Image #{image.id}", image %></td>
+            <td><%= image.state %></td>
+            <td>
+              <% unless image.appliance.nil? %><%= link_to image.appliance.name, image.appliance %>
+              <% end %></td>
+            <td>
+              <% unless image.node.nil? %><%= link_to "#{image.node.name}", image.node %>
+              <% end %></td>
+          </tr>
+      <% end %>
+    </table>
+<% else %>
+    <p>No images found.</p>
+<% end %>

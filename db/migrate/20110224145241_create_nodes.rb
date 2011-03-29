@@ -4,7 +4,6 @@ class CreateNodes < ActiveRecord::Migration
       t.string :name, :limit => 100, :null => false
       t.string :state, :limit => 20, :null => false
       t.string :address, :limit => 30, :null => false
-      t.string :capabilities, :limit => 200, :null => false
       t.timestamps
     end
   end

@@ -1,6 +1,6 @@
 source 'http://rubygems.org'
 
-gem 'rails', '3.0.4'
+gem 'rails', '3.0.5'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
@@ -30,9 +30,10 @@ gem 'rails', '3.0.4'
 #   gem 'webrat'
 # end
 
+# gem "kwalify"
 gem "transitions", :require => ["transitions", "active_record/transitions"]
 gem "activerecord-jdbc-adapter", "1.1.1", :require => "arjdbc"
 gem "activerecord-jdbcsqlite3-adapter", "1.1.1"
 gem "jruby-openssl"
-gem "org.torquebox.rake-support"
-gem "org.torquebox.messaging-client"
+gem "torquebox-rake-support"
+gem "torquebox-messaging"

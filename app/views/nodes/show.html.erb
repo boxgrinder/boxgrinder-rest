@@ -1,0 +1,42 @@
+<p id="notice"><%= notice %></p>
+
+<h3>Node <%= @node.id %></h3>
+
+<table cellspacing="1" cellpadding="5">
+  <tr class="row">
+    <td>ID</td>
+    <td><%= link_to "Node #{@node.id}", :id => @node.id, :action => :show, :controller => 'nodes' %>
+    </td>
+  </tr>
+  <tr class="row">
+    <td>Name</td>
+    <td><%= @node.name %>
+    </td>
+  </tr>
+  <tr class="row">
+    <td>Address</td>
+    <td><%= @node.address %>
+    </td>
+  </tr>
+  <tr class="row">
+    <td>State</td>
+    <td><%= @node.state %>
+    </td>
+  </tr>
+  <tr class="row">
+    <td>Created</td>
+    <td><%= @node.created_at %>
+    </td>
+  </tr>
+  <tr class="row">
+    <td>Modified</td>
+    <td><%= @node.updated_at %>
+    </td>
+  </tr>
+</table>
+
+<ul>
+  <li><%= link_to 'Edit', edit_node_path(@node) %></li>
+  <li><%= link_to "Destroy", {:action => :destroy, :id => @node.id}, :method => :delete, :confirm => "Are you sure?" %> </li>
+  <li><%= link_to 'Back', nodes_path %></li>
+</ul>

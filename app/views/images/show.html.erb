@@ -1,0 +1,64 @@
+<h3>Image <%= @image.id %></h3>
+
+<table cellspacing="1" cellpadding="5">
+  <tr class="row">
+    <td>ID</td>
+    <td><%= link_to "#{@image.id}", :id => @image.id, :action => :show, :controller => 'images' %>
+    </td>
+  </tr>
+  <% unless @image.parent.nil? %>
+      <tr class="row">
+        <td>Parent</td>
+        <td><%= link_to "#{@image.parent.id}", @image.parent %>
+        </td>
+      </tr>
+  <% end %>
+  <tr class="row">
+    <td>State</td>
+    <td><%= @image.state %>
+    </td>
+  </tr>
+  <tr class="row">
+    <td>Architecture</td>
+    <td><%= @image.arch %>
+    </td>
+  </tr>
+  <% unless @image.node.nil? %>
+      <tr class="row">
+        <td>Node</td>
+        <td><%= link_to "#{@image.node.name}", @image.node %>
+        </td>
+      </tr>
+  <% end %>
+  <tr class="row">
+    <td>Appliance</td>
+    <td><%= link_to @image.appliance.name, @image.appliance %>
+    </td>
+  </tr>
+  <% unless @image.platform.nil? %>
+      <tr class="row">
+        <td>Platform</td>
+        <td><%= @image.platform %>
+        </td>
+      </tr>
+  <% end %>
+  <tr class="row">
+    <td>Created</td>
+    <td><%= @image.created_at %>
+    </td>
+  </tr>
+  <tr class="row">
+    <td>Modified</td>
+    <td><%= @image.updated_at %>
+    </td>
+  </tr>
+</table>
+
+<h4>Image actions</h4>
+
+<ul>
+  <li><%= link_to "Destroy", {:action => :destroy, :id => @image.id}, :method => :delete, :confirm => "Are you sure?" %> </li>
+  <li><%= link_to 'Back', images_path %></li>
+</ul>
+
+

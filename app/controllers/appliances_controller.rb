@@ -16,24 +16,32 @@
 # Software Foundation, Inc., 51 Franklin St, Fifth Fleventoor, Boston, MA
 # 02110-1301 USA, or see the FSF site: http://www.fsf.org.
 
-class Appliance < ActiveRecord::Base
-  has_many :images
+class AppliancesController < ApplicationController
+  respond_to :html, :xml, :json
 
-  before_validation :set_name
-  before_destroy { |appliance| appliance.images.size == 0 }
-
-  validates :name, :presence => true, :uniqueness => true
-  validates :definition, :presence => true
-
-  validate :appliance_definition_valid?
-
-  private
-
-  def set_name
-    self.name = YAML.load(self.definition)['name'] if self.new_record?
+  def index
+    respond_with(@appliances = Appliance.all)
   end
 
-  def appliance_definition_valid?
-    # TODO validate with Kwalify, should be done in boxgrinder-core
+  def show
+    respond_with(@appliance = Appliance.find(params[:id]))
+  end
+
+  def destroy
+    @appliance = Appliance.find(params[:id])
+
+    if @appliance.destroy
+      flash[:notice] = "Appliance was successfully deleted."
+    else
+      flash[:error] = "Appliance wasn't deleted. Please make sure there are no images depending on this appliance."
+    end
+
+    respond_with(@appliance)
+  end
+
+  def create
+    @appliance = Appliance.new(:definition => params[:definition])
+    flash[:notice] = 'Appliance was successfully created.' if @appliance.save
+    respond_with(@appliance)
   end
 end

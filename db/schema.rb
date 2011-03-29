@@ -14,7 +14,6 @@ ActiveRecord::Schema.define(:version => 20110224145241) do
 
   create_table "appliances", :force => true do |t|
     t.string   "name",       :limit => 100,   :null => false
-    t.string   "state",      :limit => 20,    :null => false
     t.string   "definition", :limit => 10000, :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -34,10 +33,9 @@ ActiveRecord::Schema.define(:version => 20110224145241) do
   end
 
   create_table "nodes", :force => true do |t|
-    t.string   "name",         :limit => 100, :null => false
-    t.string   "state",        :limit => 20,  :null => false
-    t.string   "address",      :limit => 30,  :null => false
-    t.string   "capabilities", :limit => 200, :null => false
+    t.string   "name",       :limit => 100, :null => false
+    t.string   "state",      :limit => 20,  :null => false
+    t.string   "address",    :limit => 30,  :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
   end

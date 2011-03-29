@@ -1,0 +1,7 @@
+<h3>Entry points</h3>
+
+<ul>
+  <% for entry_point in entry_points do %>
+      <li><%= link_to entry_point[0].to_s.capitalize, entry_point[1] %></li>
+  <% end %>
+</ul>

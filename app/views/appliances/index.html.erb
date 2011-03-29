@@ -1,0 +1,20 @@
+<h3>Appliances</h3>
+
+<% unless @appliances.empty? %>
+    <table cellspacing="1" cellpadding="5">
+      <tr class="header">
+        <th>ID</th>
+        <th>Appliance name</th>
+      </tr>
+      <% for appliance in @appliances %>
+          <tr class="row">
+            <td>
+              <%= link_to "Appliance #{appliance.id}", appliance %></td>
+            <td>
+              <%= link_to "#{appliance.name}", appliance %></td>
+          </tr>
+      <% end %>
+    </table>
+<% else %>
+    <p>No appliances found.</p>
+<% end %>

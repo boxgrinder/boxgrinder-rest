@@ -20,12 +20,24 @@ class Node < ActiveRecord::Base
   include ActiveRecord::Transitions
 
   state_machine do
-    state :inactive
     state :active
+    state :busy
+    state :inactive
     state :error
 
-    event :toggle do
+    event :activate do
       transitions :to => :active, :from => [:inactive]
+    end
+
+    event :busy do
+      transitions :to => :busy, :from => [:active]
+    end
+
+    event :free do
+      transitions :to => :active, :from => [:busy]
+    end
+
+    event :deactivate do
       transitions :to => :inactive, :from => [:active]
     end
 

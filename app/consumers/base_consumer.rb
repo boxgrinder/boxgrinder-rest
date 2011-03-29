@@ -16,24 +16,34 @@
 # Software Foundation, Inc., 51 Franklin St, Fifth Fleventoor, Boston, MA
 # 02110-1301 USA, or see the FSF site: http://www.fsf.org.
 
-class Appliance < ActiveRecord::Base
-  has_many :images
-
-  before_validation :set_name
-  before_destroy { |appliance| appliance.images.size == 0 }
-
-  validates :name, :presence => true, :uniqueness => true
-  validates :definition, :presence => true
-
-  validate :appliance_definition_valid?
-
-  private
-
-  def set_name
-    self.name = YAML.load(self.definition)['name'] if self.new_record?
+class BaseConsumer < TorqueBox::Messaging::MessageProcessor
+  def initialize(options = {})
+    @log = options[:log] || Rails.logger
   end
 
-  def appliance_definition_valid?
-    # TODO validate with Kwalify, should be done in boxgrinder-core
+  def on_message(payload)
+    @log.info "New task received for #{self.class.name} consumer."
+    @log.debug payload.to_yaml
+
+    return unless validate_payload(payload)
+
+    @payload = payload
+
+    begin
+      self.send(payload[:action])
+    rescue => e
+      @log.error e
+      @log.error e.backtrace.join($/)
+      @log.error "Executing '#{payload[:action]}' action failed."
+    end
+  end
+
+  def validate_payload(payload)
+    unless payload.is_a?(Hash) or payload[:node].nil? or payload[:node].is_a?(Hash) or payload[:action].nil?
+      @log.error "Invalid task received!"
+      return false
+    end
+
+    true
   end
 end

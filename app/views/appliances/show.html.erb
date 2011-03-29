@@ -1,0 +1,48 @@
+<h3>Appliance <%= @appliance.id %></h3>
+
+<table cellspacing="1" cellpadding="5">
+  <tr class="row">
+    <td>ID</td>
+    <td><%= @appliance.id %>
+    </td>
+  </tr>
+  <tr class="row">
+    <td>Name</td>
+    <td>
+      <%= @appliance.name %>
+    </td>
+  </tr>
+  <tr class="row">
+    <td>Config</td>
+    <td>
+      <pre><%= @appliance.definition %></pre>
+    </td>
+  </tr>
+  <tr class="row">
+    <td>Created</td>
+    <td><%= @appliance.created_at %>
+    </td>
+  </tr>
+  <tr class="row">
+    <td>Modified</td>
+    <td><%= @appliance.updated_at %>
+    </td>
+  </tr>
+</table>
+
+<h4>Appliance actions</h4>
+
+<ul>
+  <% ['i386'].each do |arch| %>
+      <li><strong><%= arch %> architecture</strong>
+        <ul>
+          <li><%= button_to "Build base image", {:action => :create, :controller => 'images', :image => {:appliance_id => @appliance.id, :arch => arch}}, :method => :post %></li>
+        </ul>
+      </li>
+  <% end %>
+
+  <li><%= link_to "Destroy", {:action => :destroy, :id => @appliance.id}, :method => :delete, :confirm => "Are you sure?" %> </li>
+  <li><%= link_to 'Back', appliances_path %></li>
+</ul>
+
+

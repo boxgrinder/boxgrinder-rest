@@ -1,4 +1,21 @@
 BoxgrinderRest::Application.routes.draw do
+
+  resource :api, :controller => 'api', :only => [:show]
+
+  scope "/api" do
+    resources :appliances
+    #, :except => [:update, :edit, :new]
+    #, :requirements => {:id => /\d+/}
+
+    resources :images do
+      member do
+        post :deliver
+        post :convert
+      end
+    end
+    resources :nodes
+  end
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

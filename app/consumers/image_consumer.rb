@@ -16,24 +16,29 @@
 # Software Foundation, Inc., 51 Franklin St, Fifth Fleventoor, Boston, MA
 # 02110-1301 USA, or see the FSF site: http://www.fsf.org.
 
-class Appliance < ActiveRecord::Base
-  has_many :images
+require 'base_consumer'
 
-  before_validation :set_name
-  before_destroy { |appliance| appliance.images.size == 0 }
+class ImageConsumer < BaseConsumer
+  def progress
+    if @payload[:event].nil? or @payload[:image_id].nil?
+      @log.error "Received progress info is invalid."
+      return
+    end
 
-  validates :name, :presence => true, :uniqueness => true
-  validates :definition, :presence => true
+    @log.info "Received new '#{@payload[:event]}' event for image '#{@payload[:image_id]}'."
 
-  validate :appliance_definition_valid?
+    image = Image.find(@payload[:image_id])
 
-  private
+    unless image.events_for_current_state.include?(@payload[:event].to_s[0..-2].to_sym)
+      @log.error "Event #{@payload[:event]} is not valid for current image state: #{image.state}."
+      return
+    end
 
-  def set_name
-    self.name = YAML.load(self.definition)['name'] if self.new_record?
-  end
+    if @payload[:event] == :build!
+      node = Node.last(:conditions => {:name => @payload[:node]})
+      image.node = node unless node.nil?
+    end
 
-  def appliance_definition_valid?
-    # TODO validate with Kwalify, should be done in boxgrinder-core
+    image.send(@payload[:event])
   end
 end

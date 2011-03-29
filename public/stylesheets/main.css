@@ -1,0 +1,63 @@
+html {
+    background-color: white;
+    padding: 0;
+    margin: 0;
+}
+
+body {
+    font-family: "Helvetica", serif;
+    font-size: 0.85em;
+    padding: 0;
+    margin: 0;
+}
+
+div#main {
+    margin: 0 auto;
+    width: 700px;
+    background-color: #eee;
+    padding: 0.5em;
+    overflow: hidden;
+}
+
+div#header {
+    background-color: #ddd;
+    padding: 0.5em;
+}
+
+pre {
+    background-color: #ddd;
+    padding: 0.5em;
+}
+
+p {
+    padding: 0.5em;
+    margin: 0;
+}
+
+tr.row {
+    background-color: #ddd;
+}
+
+tr.header {
+    background-color: #888;
+    color: #fff;
+}
+
+ul.breadcrumb {
+    font-size: 0.8em;
+    list-style: none;
+    padding: 0.5em;
+    margin: 0;
+}
+
+ul.breadcrumb li {
+    display: inline;
+    padding: 0;
+    margin: 0;
+}
+
+ul.breadcrumb li.subsequent:before {
+    content: " : ";
+    padding: 0;
+    margin: 0;
+}

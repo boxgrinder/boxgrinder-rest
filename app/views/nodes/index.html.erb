@@ -1,0 +1,23 @@
+<h3>Nodes</h3>
+
+<% unless @nodes.nil? or @nodes.empty? %>
+    <table cellspacing="1" cellpadding="5">
+      <tr class="header">
+        <th>Node ID</th>
+        <th>Node Name</th>
+        <th>Node Address</th>
+        <th>Node State</th>
+      </tr>
+      <% @nodes.each do |node| %>
+          <tr class="row">
+            <td>
+              <%= link_to "#{node.id}", node %></td>
+            <td><%= link_to "#{node.name}", node %> </td>
+            <td><%= node.address %></td>
+            <td><%= node.state %></td>
+          </tr>
+      <% end %>
+    </table>
+<% else %>
+    <p>No nodes found.</p>
+<% end %>
